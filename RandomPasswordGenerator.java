@@ -5,7 +5,7 @@ package com.kilby;
  * letters and numbers using the psudo-random Random class.
  *
  * @author Michael Kilby
- * @version 2.1 Mar 19, 2015
+ * @version 2.1.1: Mar 19, 2015
  *
  */
 public class RandomPasswordGenerator
@@ -49,7 +49,7 @@ public class RandomPasswordGenerator
 	 * The generateChars method generates an amount of letters according to a given percentage.
 	 * 
 	 * @param percent This is the percent of the password that is characters.
-	 * @return String This returns the character part of the password.
+	 * @return <b>String</b> This returns the character part of the password.
 	 */
 	private String generateChars(double percent)
 	{
@@ -71,7 +71,7 @@ public class RandomPasswordGenerator
 	 * @param numPercent This is the percent of the password that is numbers.
 	 * @param charPercent This is the percent of the password that is letters.
 	 * @param order This is the order that numbers and letters come in the password. "numbers" means numbers first, "chars" means letters first.
-	 * @return String This is the final password.
+	 * @return <b>String</b> This is the final password.
 	 */
 	public String generatePassword(int length, double numPercent, double charPercent, String order)
 	{
