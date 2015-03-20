@@ -1,53 +1,70 @@
 package com.kilby;
 
-import java.util.Scanner;
-
 /**
- * A program that generates a random password according to a set of rules
+ * A class that generates a random password according to a set of rules.
  *
  * @author Michael Kilby
  *
  */
 public class RandomPasswordGenerator
 {
-	/**
-	 * @param args
-	 */
-
-	public static void main(String[] args)
+	private int passwordLength;
+	private StringBuilder password = new StringBuilder();
+	private String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	
+	private int randomNumber(int min, int max)
 	{
-		int passwordLength;
-		System.out.print("Enter the length of the outputted password: ");
-		Scanner askNum = new Scanner(System.in);
-		passwordLength = askNum.nextInt();
-		askNum.close(); //done with getting number
-		
-		double sevPercent = .7 * passwordLength; //numbers
-		double tenPercent = .3 * passwordLength; //letters
-		
-//begin number generating loop
-		StringBuilder numPass = new StringBuilder();	
-		for (int y = 0; y < sevPercent; y++)
-		{
-			int random = (int)(Math.random() * 10 + 1);
-			numPass.append(random);
-		}
-//end loop
-		
-//begin character generating loop
-		StringBuilder charPass = new StringBuilder();
-		String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		for (int x = 0; x < tenPercent; x++)
-		{
-			int charForPass = (int)(Math.random() * 52 + 1);
-			char alphaPass = 'a';
-			alphaPass = alphabet.charAt(charForPass);
-			numPass.append(alphaPass);
-		}
-//end loop
-		
-		System.out.println(numPass);
-		System.out.println(charPass);
+	   int range = (max - min) + 1;
+	   return (int)(Math.random() * range) + min;
 	}
+	
+	private String generateNumbers(double percent)
+	{
+		StringBuilder numPass = new StringBuilder();
+			for (int y = 0; y < percent; y++)
+			{
+				int numForPass = randomNumber(1,10);
+				//int random = (int)(Math.random() * 10 + 1);
+				numPass.append(numForPass);
+			}
+		return numPass.toString();
+	}
+	
+	private String generateChars(double percent)
+	{
+		StringBuilder charPass = new StringBuilder();
+		for (int x = 0; x < percent; x++)
+		{
+			int charForPass = randomNumber(1,51); //51 because strings start at 0
+			//int charForPass = (int)(Math.random() * 52 + 1);
+			char alphaPass = alphabet.charAt(charForPass);
+			charPass.append(alphaPass);
+		}
+		return charPass.toString();
+	}
+	
+	public String generatePassword(int length, double numPercent, double charPercent, String order)
+	{
+		//clear vars
+		this.passwordLength = length;
+		password.setLength(0);
+		
+		//create the correct lengths
+		numPercent *= length;
+		charPercent *= length;
 
+		//generate in order
+		if(order == "numbers")
+		{
+			password.append(generateNumbers(numPercent));
+			password.append(generateChars(charPercent));
+		}
+		if(order == "chars")
+		{
+			password.append(generateChars(charPercent));
+			password.append(generateNumbers(numPercent));	
+		}
+		
+		return password.toString();
+	}
 }
