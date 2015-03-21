@@ -11,7 +11,7 @@ public class PWDTester
 		
 		for(int ten = 1; ten < 10; ten++)
 		{
-			System.out.println(pd.generatePassword(ten, .3, .7, "chars"));
+			System.out.println(pd.generatePassword(ten, 0.7, 0.3, "numbers"));
 		}
 	}
 

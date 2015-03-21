@@ -5,12 +5,11 @@ package com.kilby;
  * letters and numbers using the psudo-random Random class.
  *
  * @author Michael Kilby
- * @version 2.1.1: Mar 19, 2015
+ * @version 2.1.2: Mar 19, 2015
  *
  */
 public class RandomPasswordGenerator
 {
-	private int passwordLength;
 	private StringBuilder password = new StringBuilder();
 	private String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	
@@ -31,15 +30,14 @@ public class RandomPasswordGenerator
 	 * The generateNumbers method generates an amount of numbers according to a given percentage.
 	 * 
 	 * @param percent This is the percent of the password that is numbers.
-	 * @return String This returns the number part of the password.
+	 * @return <b>String</b> This returns the number part of the password.
 	 */
 	private String generateNumbers(double percent)
 	{
 		StringBuilder numPass = new StringBuilder();
-			for (int y = 0; y < percent; y++)
+			for (int y = 0; y <= percent; y++)
 			{
 				int numForPass = randomNumber(1,10);
-				//int random = (int)(Math.random() * 10 + 1);
 				numPass.append(numForPass);
 			}
 		return numPass.toString();
@@ -54,11 +52,9 @@ public class RandomPasswordGenerator
 	private String generateChars(double percent)
 	{
 		StringBuilder charPass = new StringBuilder();
-		for (int x = 0; x < percent; x++)
+		for (int x = 0; x <= percent; x++)
 		{
-			int charForPass = randomNumber(1,51); //51 because strings start at 0
-			//int charForPass = (int)(Math.random() * 52 + 1);
-			char alphaPass = alphabet.charAt(charForPass);
+			char alphaPass = alphabet.charAt(randomNumber(1,51));//51 because strings start at 0
 			charPass.append(alphaPass);
 		}
 		return charPass.toString();
@@ -76,7 +72,6 @@ public class RandomPasswordGenerator
 	public String generatePassword(int length, double numPercent, double charPercent, String order)
 	{
 		//clear vars
-		this.passwordLength = length;
 		password.setLength(0);
 		
 		//create the correct lengths
@@ -86,13 +81,13 @@ public class RandomPasswordGenerator
 		//generate in order
 		if(order == "numbers")
 		{
-			password.append(generateNumbers(numPercent));
-			password.append(generateChars(charPercent));
+			password.append(generateNumbers((int)numPercent));
+			password.append(generateChars((int)charPercent));
 		}
 		if(order == "chars")
 		{
-			password.append(generateChars(charPercent));
-			password.append(generateNumbers(numPercent));	
+			password.append(generateChars((int)charPercent));
+			password.append(generateNumbers((int)numPercent));	
 		}
 		
 		return password.toString();
